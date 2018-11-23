@@ -17,9 +17,13 @@ Allows musicians to create gigs, or 'sessions', to which other musicians can app
 - **logout** - As a user I want to be able to log out to make sure no one accesses my account
 - **sessions list** - As a user I want to see all upcoming sessions for my city/area, so I can check out the only the ones I'm interested in
 - **session detail** - As a user I want to see the session details and information to be able to join
-- **create session** - As a user I want to create a session so I can find the musicians I need for my upcoming gigs. I want to be able to modify details and also delete a session if the situation changes or if it will no longer take place.
-- **join session** - As a user I want to be able to request to join a session with my instrument of choice and be able to check the state of my request so I know if I've been accepted or rejected.
-- **handle session requests** - As a user I want to be able to accept or reject musicians' requests to join the sessions I've created, so that I can narrow down my options.
+- **create session** - As a user I want to create a session so I can find the musicians I need for my upcoming gigs. 
+- **edit session** - I want to be able to modify details
+- **delete session** - delete a session if the situation changes or if it will no longer take place.
+- **join session** - As a user I want to be able to request to join a session with my instrument of choice and 
+- **check session request status** - be able to check the state of my request so I know if I've been accepted or rejected.
+- **accept session request** - As a user I want to be able to accept requests from other musicians
+- **reject session request** - As a user I want to be able to reject requests from other musicians
 
 
 ## Backlog - List of other features outside of the MVP's scope
@@ -90,6 +94,7 @@ Filter the list of sessions according to your availibility (so you don't see ses
   - Render the session creator/editor view
   - If user not signed up or logged in, redirects to /
 - POST /sessions/create
+  - If user not signed up or logged in, redirects to /
   - Redirects to /sessions
    - body:
     - creatorId
@@ -99,10 +104,14 @@ Filter the list of sessions according to your availibility (so you don't see ses
     - roles
     - sessionInfo
 - GET /sessions/:session-id/edit
-  - Checks if logged in userId === creatorId for the session, and in that case:
+  - Checks userId === creatorId for the session, and in that case:
+  - checks if you are logged in
+  - checks if the sessionID is valid
   - Render the session creator/editor view
 - POST /sessions/:session-id/edit
   - Checks if logged in userId === creatorId for the session, and in that case:
+  - checks if you are logged in
+  - checks if the sessionID is valid
   - Redirects to /sessions
    - body:
     - sessionId
@@ -113,17 +122,20 @@ Filter the list of sessions according to your availibility (so you don't see ses
     - sessionInfo
 - POST /sessions/:session-id/delete
   - Checks if logged in userId === creatorId for the session, and in that case:
+  - checks if you are logged in
+  - checks if the sessionID is valid
   - Redirects to /sessions
-  - Body: IS IT EMPTY?
+  - Body: empty
 - GET /sessions/:id
   - Checks if logged in userId === creatorId for the session, and in that case:
   - Redirects to /sessions/:session-id/edit
   - Renders session detail view if user is logged in but is not creator
-- POST/sessions/:id/join
+- POST /sessions/:id/join
   - If user not signed up or logged in, redirects to /
   - Redirects to /sessions (after a flash confirmation message)
    - Body:
     - request.create
+    - userID
 - POST /sessions/:session-id/confirm
   - If user not signed up or logged in, redirects to /
   - Checks if logged in userId === creatorId for the session, and in that case:
@@ -203,14 +215,15 @@ const sessionSchema = new Schema({
     trim: true
   },
   roles: [{
-    type: String,
-    enum: ['Guitar', 'Drums', 'Bass', 'Keyboard', 'Trumpet', 'Saxophone', 'Strings', 'Vocals'],
-    required: true,
-    joinerId: {
-    	type: ObjectId
-	    ref: 'User'
-	// If joiner Id is empty, it means the role is still vacant
-    }
+  	instrument: {
+		type: String,
+		enum: ['Guitar', 'Drums', 'Bass', 'Keyboard', 'Trumpet', 'Saxophone', 'Strings', 'Vocals'],
+    		required: true,
+	},
+	requests: [{
+    		type: ObjectId
+	    	ref: 'Request'
+    	}]
   }],
   sessionInfo: {
     type: String,
@@ -242,16 +255,6 @@ const requestSchema = new Schema({
   joinerId: {
     type: objectId,
     ref: 'User',
-    required: true
-  },
-  sessionId: {
-    type: objectId,
-    ref: 'Session',
-    required: true
-  },
-  role: {
-    type: String,
-    enum: ['Guitar', 'Drums', 'Bass', 'Keyboard', 'Trumpet', 'Saxophone', 'Strings', 'Vocals'],
     required: true
   },
   status: {
