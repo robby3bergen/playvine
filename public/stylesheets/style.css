@@ -1,0 +1,111 @@
+/* ---- reset ---- */
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8f7f9;
+}
+
+
+/* ---- colorscheme
+  black:    #0c0303
+  red:      #994949
+  lavender: #b9b0dd
+  white:    #f8f7f9
+  grey:     #564f4e
+---- */
+
+/* ---- typography ---- */
+
+body {
+  color: #564f4e;
+  font-family: 'Maven Pro', 'Lucida Grande', 'Segoe UI', sans-serif;
+}
+
+/* 404 & 500 pages */
+
+.status-code {
+  text-align: center;
+}
+
+.status-code h1 {
+  font-weight: bolder;
+  font-size: 2.5rem;
+}
+
+.status-code h2 span {
+  display: block;
+  font-weight: bold;
+  font-size: 2.7rem;
+}
+
+.status-code p {
+  font-size: 1rem;
+}
+
+.status-code a {
+  font-weight: bold;
+  color: #b9b0dd;
+}
+
+section.header-info h1 {
+  font-weight: 900;
+}
+
+/* home page */
+
+section.header-info {
+  color: #f8f7f9;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
+}
+
+section.header-info p {
+    margin-top: 70px
+}
+
+/* ---- layout ---- */
+
+.container {
+  margin: 0 35px;
+}
+
+.center-all {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 87vh;
+}
+
+header {
+  background-image: url('/images/anonymous-musicians.jpg');
+  background-size: cover;
+  height: 100vh;
+}
+
+
+
+/* ---- components ---- */
+
+a.button {
+  display: block;
+  margin: 20% auto;
+  width: 90%;
+  height: 47px;
+  background: #994949;
+  border-radius: 4px;
+  color: #f8f7f9;
+  text-decoration: none;
+  text-align: center;
+  line-height: 47px;
+  font-weight: bold;
+}
+
+
+/* ---- section ---- */
