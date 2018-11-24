@@ -7,6 +7,7 @@ const hbs = require('hbs');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
+const signUpRouter = require('./routes/signup');
 // const usersRouter = require('./routes/users');
 
 const app = express();
@@ -22,6 +23,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/signup', signUpRouter);
+
+// app.get('/signup', function (req, res, next) {
+//   next();
+// }, function (req, res) {
+//   res.send('Hello from signup form!');
+// });
 
 // -- 404 and error handler
 
