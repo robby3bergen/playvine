@@ -81,10 +81,36 @@ section.header-info p {
     margin: 15px 0;
 }
 
+/* signup form */
+
+.signup {
+  color: #f8f7f9;
+}
+
+.field p {
+  font-size: x-small;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
+}
+
+.field a {
+  color: #f8f7f9;
+}
+
+.field input {
+  background-color: #f8f7f9;
+  color: #564f4e;
+  font-size: large;
+  border: none;
+  padding: 10px;
+  outline-color: #994949;
+  border-radius: 4px;
+}
+
 /* ---- layout ---- */
 
 .container {
   margin: 0 35px;
+  height: 100vh;
 }
 
 .center-all {
@@ -97,19 +123,41 @@ section.header-info p {
 header {
   background-image: url('/images/anonymous-musicians.jpg');
   background-size: cover;
+  background-position: center;
   height: 100vh;
 }
 
-<<<<<<< HEAD
-/* signup fomr */
+/* signup form */
 
+.signup h1 {
+  width: 100px;
+  margin: 0 auto;
+  padding-top: 70px;
 
+}
+
+#sign-up-form {
+  padding: 5%;
+  width: 100%;
+}
+
+.field label, input {
+  display: block;
+  width: 100%;
+  margin: 5px auto;
+  /* line-height: 25px; */
+}
+
+.field.submit {
+  position: absolute;
+  width: 90%;
+  left: 5%;
+  bottom: 15%;
+}
 
 
 /* ---- components ---- */
 
-.button {
-=======
 p.testing {
   background-color: red;
   width: 100%;
@@ -141,10 +189,9 @@ p.testing {
   opacity: 0.70;
 }
 
-a.button {
->>>>>>> d568b24032f15112fe1942f474eca90d8df1a630
+.button {
   display: block;
-  margin: 20% auto;
+  margin: 0 auto;
   width: 90%;
   height: 47px;
   background: #994949;
@@ -154,6 +201,7 @@ a.button {
   text-align: center;
   line-height: 47px;
   font-weight: bold;
+  border: none;
 }
 
 

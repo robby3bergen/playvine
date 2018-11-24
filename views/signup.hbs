@@ -1,17 +1,21 @@
 <header>
-  <section class="container header-info center-all">
+  <section class="container signup">
     <h1>Sign Up</h1>
 
-    <form method="POST" action="/signup">
+    <form id="#sign-up-form" method="POST" action="/signup">
 
       <div class="field">
         <label>Username</label>
-        <input type="text" name="username" />
+        <input type="text" name="username" required/>
       </div>
 
       <div class="field">
         <label>Password</label>
-        <input type="password" name="password" />
+        <input type="password" name="password" minlength="8" required />
+      </div>
+
+      <div class="field">
+        <p>Already a member? <a href="/login">Login</a>.</p>
       </div>
 
       <div class="field submit">
