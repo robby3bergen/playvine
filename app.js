@@ -1,15 +1,27 @@
 'use strict'
 
+// set up Express
 const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const hbs = require('hbs')
 const logger = require('morgan')
 
+// set up the routes
 const indexRouter = require('./routes/index')
-// const usersRouter = require('./routes/users');
+const signUpRouter = require('./routes/signup')
 
+// start express
 const app = express()
+
+// set up connection to mongo database
+const mongoose = require('mongoose')
+
+mongoose.connect('mongodb://localhost/playvine', {
+  keepAlive: true,
+  useNewUrlParser: true,
+  reconnectTries: Number.MAX_VALUE
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -20,19 +32,20 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 hbs.registerPartials(path.join(__dirname, '/views/partials'))
+
 app.use(express.static(path.join(__dirname, 'public')))
 
+// default route handlers
 app.use('/', indexRouter)
+app.use('/signup', signUpRouter)
 
-// -- 404 and error handler
-
-// NOTE: requires a views/not-found.ejs template
+// 404 client error handler
 app.use((req, res, next) => {
   res.status(404)
   res.render('not-found', { title: 'Page not found! | Playvine ' })
 })
 
-// NOTE: requires a views/error.ejs template
+// 500 server error handler
 app.use((err, req, res, next) => {
   // always log the error
   console.error('ERROR', req.method, req.path, err)
