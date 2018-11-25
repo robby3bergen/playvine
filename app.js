@@ -35,6 +35,8 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
+hbs.registerPartials(path.join(__dirname, '/views/partials'))
+
 app.use(express.static(path.join(__dirname, 'public')))
 
 // use flash
