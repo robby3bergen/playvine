@@ -106,6 +106,18 @@ section.header-info p {
   border-radius: 4px;
 }
 
+.field input:empty::after {
+  display: none
+}
+
+.validation {
+  color: #994949;
+  font-weight: bold;
+  background-color: #f8f7f9;
+  opacity: 0.7;
+  padding: 10px;
+}
+
 /* ---- layout ---- */
 
 .container {

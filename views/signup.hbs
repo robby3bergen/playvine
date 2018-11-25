@@ -6,8 +6,14 @@
 
       <div class="field">
         <label>Username</label>
-        <input type="text" name="username" required/>
+        <input type="text" name="username" required value="{{username}}"/>
       </div>
+
+      {{#if messages.length}}
+          {{#each messages}}
+            <p class="validation">* {{this}}</p>
+          {{/each}}
+      {{/if}}
 
       <div class="field">
         <label>Password</label>
