@@ -1,3 +1,11 @@
+/* ---- colorscheme
+  black:    #0c0303
+  red:      #994949
+  lavender: #b9b0dd
+  white:    #f8f7f9
+  grey:     #564f4e
+---- */
+
 /* ---- reset ---- */
 
 html {
@@ -12,15 +20,6 @@ body {
   padding: 0;
   background-color: #f8f7f9;
 }
-
-
-/* ---- colorscheme
-  black:    #0c0303
-  red:      #994949
-  lavender: #b9b0dd
-  white:    #f8f7f9
-  grey:     #564f4e
----- */
 
 /* ---- typography ---- */
 
@@ -55,6 +54,13 @@ body {
   color: #b9b0dd;
 }
 
+/* home page */
+
+section.header-info {
+  color: #f8f7f9;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
+}
+
 section.header-info h1 {
   font-size: 1.2rem;
   letter-spacing: .03rem;
@@ -65,21 +71,36 @@ section.header-info p {
   letter-spacing: .01rem;
 }
 
-/* home page */
-
-section.header-info {
-  color: #f8f7f9;
-  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
+main.header-info h1 {
+  font-size: 1.7rem;
 }
 
-section.header-info h1 {
-  margin: 0;
-  padding: 100px 0 10px 0;
+main.header-info a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #994949;
 }
 
-section.header-info p {
-    margin: 15px 0;
+/* navbar */
+
+ul.nav {
+  text-align: center;
 }
+
+ul.nav li a {
+  text-decoration: none;
+  color: #0c0303;
+}
+
+main div.showcase h3 {
+  font-size: 1.3rem;
+  color: #564f4e;
+}
+
+main div.showcase p {
+ font-size: .7rem;
+}
+
 
 /* signup form */
 
@@ -127,13 +148,74 @@ header {
   height: 100vh;
 }
 
+/* navbar */
+
+nav {
+  width: 100%;
+  height: 3.125rem;
+}
+
+ul.nav {
+  width: 60%;
+	float: right;
+	margin: 0 0 2rem 0;
+	padding: 1rem 0 1rem 1rem;
+  list-style: none;
+}
+
+ul.nav li {
+  padding-right: 1.5rem;
+  float: right;
+}
+
+/* home page */
+
+section.header-info h1 {
+  margin: 0;
+  padding: 6.25rem 0 1.25rem 0;
+}
+
+section.header-info p {
+  margin: 0.9375rem 0 1.25rem 0;
+}
+
+main.header-info h1 {
+  margin: 0;
+  padding: 2rem 0 1rem 0;
+}
+
+main.header-info p {
+  margin: 0;
+  padding: .7rem 0 .2rem 0;
+}
+
+main div.showcase {
+  margin: 2.2rem 0 2rem 0;
+  padding: .8rem 2.2rem 1.4rem 1.4rem;
+  border-radius: .5rem;
+  background-color: white;
+  box-shadow: 2px 4px 16px rgba(86, 79, 78, 0.3);
+}
+
+main div.showcase h3 {
+  margin: .2rem;
+  
+  /*override user-agent-stylesheet*/
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+div.showcase p.session-info {
+  margin: 0;
+  padding: 6;
+}
+
 /* signup form */
 
 .signup h1 {
   width: 100px;
   margin: 0 auto;
   padding-top: 70px;
-
 }
 
 #sign-up-form {
@@ -156,7 +238,7 @@ header {
 }
 
 
-/* ---- components ---- */
+/* ---- testing ---- */
 
 p.testing {
   background-color: red;
@@ -170,7 +252,7 @@ p.testing {
 
 .baby-separator {
   position: absolute;
-  bottom: 4rem;
+  bottom: 2rem;
   margin: 0 auto;
   left: 44%;
   width: 2.5rem;
@@ -182,14 +264,15 @@ p.testing {
 
 .big-separator {
   position: absolute;
-  bottom: 0;
+  top: 34rem;
   width: 100%;
-  height: 3.4rem;
+  height: 5rem;
   background-color: #f8f7f9;
   opacity: 0.70;
 }
 
 .button {
+  font-family: inherit;
   display: block;
   margin: 0 auto;
   width: 90%;
@@ -204,5 +287,21 @@ p.testing {
   border: none;
 }
 
+/* navbar */
+
+button.nav-logout {
+  background: none;
+  color: #0c0303;
+  border: none; 
+  padding:0;
+  font: inherit;
+}
+
+img.navbar-logo {
+  float: left;
+  width: 5.5rem;
+  margin: .2rem 0 0 .5rem;
+  margin-top: .2rem;
+}
 
 /* ---- section ---- */

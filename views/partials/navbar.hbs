@@ -1,7 +1,17 @@
 <nav>
-  <img src="/images/logo-white-background.png" />
-  <ul>
-    <li><p class="testing">HENLO FREN DIS UR PARTIAL U JUS CREATED</p></li>
-    <li><a href="/">Log out</a></li>
+  <a href="/"><img class="navbar-logo"src="/images/logo-white-background.png" /></a>
+  <ul class="nav">
+    {{#unless currentUser}}
+        <li><a href="/signup">Sign Up</a></li>
+        <li><a href="/login">Login</a></li>
+      {{else}}
+      <li><a href="/sessions/create">New session</a></li>
+      <li>
+        <form action="/auth/logout" method="POST">
+          <button class="nav-logout"type="submit">Logout</button>
+        </form>
+      </li>
+      {{/unless}}
   </ul>
 </nav>
+
