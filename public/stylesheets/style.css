@@ -104,7 +104,7 @@ main div.showcase p {
 
 /* signup form */
 
-.signup {
+.auth {
   color: #f8f7f9;
 }
 
@@ -180,7 +180,7 @@ ul.nav {
 
 ul.nav li {
   padding-right: 1.5rem;
-  float: right;
+  float: left;
 }
 
 /* home page */
@@ -227,13 +227,13 @@ div.showcase p.session-info {
 
 /* signup form */
 
-.signup h1 {
+.auth h1 {
   width: 100px;
   margin: 0 auto;
   padding-top: 70px;
 }
 
-#sign-up-form {
+#auth-form {
   padding: 5%;
   width: 100%;
 }

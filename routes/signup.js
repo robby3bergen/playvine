@@ -39,7 +39,8 @@ router.post('/', (req, res, next) => {
       return res.redirect('/signup?username=' + encodeURIComponent(newUser.username))
     } else {
       req.flash('userCreated', 'Your are ready to go!')
-      return res.redirect('/')
+      req.session.currentUser = newUser
+      return res.redirect('/#list-preview')
     }
   })
 })

@@ -25,6 +25,7 @@ const flash = require('connect-flash')
 // set up the routes
 const indexRouter = require('./routes/index')
 const signUpRouter = require('./routes/signup')
+const logInRouter = require('./routes/login')
 
 mongoose.connect('mongodb://localhost/playvine', {
   keepAlive: true,
@@ -32,7 +33,7 @@ mongoose.connect('mongodb://localhost/playvine', {
   reconnectTries: Number.MAX_VALUE
 })
 
-// // store session and create currentUser
+// store session and create currentUser
 app.use(session({
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
@@ -73,6 +74,7 @@ app.use(flash())
 // default route handlers
 app.use('/', indexRouter)
 app.use('/signup', signUpRouter)
+app.use('/login', logInRouter)
 
 // 404 client error handler
 app.use((req, res, next) => {

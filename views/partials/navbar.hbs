@@ -5,7 +5,7 @@
         <li><a href="/signup">Sign Up</a></li>
         <li><a href="/login">Login</a></li>
       {{else}}
-      <li><a href="/sessions/create">New session</a></li>
+      <li>{{currentUser.username}}</li>
       <li>
         <form action="/auth/logout" method="POST">
           <button class="nav-logout"type="submit">Logout</button>
