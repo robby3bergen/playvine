@@ -24,8 +24,7 @@ const flash = require('connect-flash')
 
 // set up the routes
 const indexRouter = require('./routes/index')
-const signUpRouter = require('./routes/signup')
-const logInRouter = require('./routes/login')
+const authRouter = require('./routes/auth')
 
 mongoose.connect('mongodb://localhost/playvine', {
   keepAlive: true,
@@ -73,8 +72,7 @@ app.use(flash())
 
 // default route handlers
 app.use('/', indexRouter)
-app.use('/signup', signUpRouter)
-app.use('/login', logInRouter)
+app.use('/auth', authRouter)
 
 // 404 client error handler
 app.use((req, res, next) => {

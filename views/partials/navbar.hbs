@@ -2,8 +2,8 @@
   <a href="/"><img class="navbar-logo"src="/images/logo-white-background.png" /></a>
   <ul class="nav">
     {{#unless currentUser}}
-        <li><a href="/signup">Sign Up</a></li>
-        <li><a href="/login">Login</a></li>
+        <li><a href="/auth/signup">Sign Up</a></li>
+        <li><a href="/auth/login">Login</a></li>
       {{else}}
       <li>{{currentUser.username}}</li>
       <li>
