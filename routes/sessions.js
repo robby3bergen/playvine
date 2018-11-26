@@ -8,12 +8,13 @@ router.get('/create', (req, res, next) => {
   res.render('sessions/create', { title: 'Playvine | Create a session ' })
 })
 
-router.post('/create', (req, res, next) => {
+router.post('/', (req, res, next) => {
   const { name, startTime, location, roles, sessionInfo } = req.body
+  console.log(req.body.roles)
   _Session.create({ name, startTime, location, roles, sessionInfo })
     .then(result => {
       console.log(result)
-      res.redirect('/sessions/create')
+      res.redirect('/sessions')
       /* redirect the user to the same route you used for
       the action= field in the hbs form */
     })
