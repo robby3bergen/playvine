@@ -6,19 +6,21 @@
 
       <div class="field">
         <label>Username</label>
-        <input type="text" name="username" required value="{{username}}"/>
+        <input type="text" name="username" value="{{username}}"/>
+        <!--required -->
       </div>
 
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" />
+        <!--required minlength="8" -->
+      </div>
+      
       {{#if messages.length}}
           {{#each messages}}
             <p class="validation">* {{this}}</p>
           {{/each}}
       {{/if}}
-
-      <div class="field">
-        <label>Password</label>
-        <input type="password" name="password" minlength="8" required />
-      </div>
 
       <div class="field submit">
         <button class="button" type="submit">Log in</button>

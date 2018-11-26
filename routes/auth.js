@@ -5,6 +5,7 @@ const router = express.Router()
 
 const User = require('../models/user.js')
 const checkLogin = require('../middleware/checkLogIn.js')
+const checkFields = require('../middleware/checkFields.js')
 
 const bcrypt = require('bcrypt')
 const saltRounds = 10
@@ -13,7 +14,7 @@ const saltRounds = 10
 router.get('/signup', checkLogin.isLoggedIn, (req, res, next) => {
   const usernameData = req.flash('FormData')
   const data = {
-    messages: req.flash('mongoError'),
+    messages: req.flash('message'),
     title: 'Playvine - Sign Up',
     username: usernameData
   }
@@ -21,14 +22,8 @@ router.get('/signup', checkLogin.isLoggedIn, (req, res, next) => {
 })
 
 /* POST signup */
-router.post('/signup', checkLogin.isLoggedIn, (req, res, next) => {
+router.post('/signup', checkLogin.isLoggedIn, checkFields.requireField, (req, res, next) => {
   const { username, password } = req.body
-  // password validation
-  if (password.length < 8) {
-    req.flash('mongoError', 'Password should be at least 8 characters')
-    req.flash('FormData', username)
-    return res.redirect('/auth/signup')
-  }
   const salt = bcrypt.genSaltSync(saltRounds)
   const hashedPassword = bcrypt.hashSync(password, salt)
   const newUser = {
@@ -41,7 +36,7 @@ router.post('/signup', checkLogin.isLoggedIn, (req, res, next) => {
   User.create(newUser, (err, user) => {
     if (err) {
       if (err.code === 11000) {
-        req.flash('mongoError', `Username '${newUser.username}' has already been taken.`)
+        req.flash('message', `Username '${newUser.username}' has already been taken.`)
         req.flash('FormData', username)
       } else {
         throw err
@@ -89,7 +84,9 @@ router.post('/login', checkLogin.isLoggedIn, (req, res, next) => {
 
 /* POST logout */
 router.post('/logout', (req, res, next) => {
-  delete req.session.currentUser
+  if (req.session.currentUser) {
+    delete req.session.currentUser
+  }
   res.redirect('/auth/login')
 })
 

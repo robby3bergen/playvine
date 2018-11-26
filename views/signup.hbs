@@ -9,6 +9,11 @@
         <input type="text" name="username" required value="{{username}}"/>
       </div>
 
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" required minlength="8" />
+      </div>
+
       {{#if messages.length}}
           {{#each messages}}
             <p class="validation">* {{this}}</p>
@@ -16,12 +21,7 @@
       {{/if}}
 
       <div class="field">
-        <label>Password</label>
-        <input type="password" name="password" minlength="8" required />
-      </div>
-
-      <div class="field">
-        <p>Already a member? <a href="/login">Login</a>.</p>
+        <p>Already a member? <a href="/auth/login">Login</a>.</p>
       </div>
 
       <div class="field submit">
