@@ -40,6 +40,6 @@ const sessionSchema = new Schema({
   }
 })
 
-const Session = mongoose.model('Session', sessionSchema)
+const _Session = mongoose.model('_Session', sessionSchema)
 
-module.exports = Session
+module.exports = _Session
