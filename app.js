@@ -7,24 +7,48 @@ const cookieParser = require('cookie-parser')
 const hbs = require('hbs')
 const logger = require('morgan')
 
+// start express
+const app = express()
+
 // set up flash error messaging
 const session = require('express-session')
+
+// store mongo session
+const MongoStore = require('connect-mongo')(session)
+
+// set up connection to mongo database
+const mongoose = require('mongoose')
+
+// set up flash messages
 const flash = require('connect-flash')
 
 // set up the routes
 const indexRouter = require('./routes/index')
 const signUpRouter = require('./routes/signup')
 
-// start express
-const app = express()
-
-// set up connection to mongo database
-const mongoose = require('mongoose')
-
 mongoose.connect('mongodb://localhost/playvine', {
   keepAlive: true,
   useNewUrlParser: true,
   reconnectTries: Number.MAX_VALUE
+})
+
+// // store session and create currentUser
+app.use(session({
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  }),
+  secret: 'some-string',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000
+  }
+}))
+
+app.use((req, res, next) => {
+  app.locals.currentUser = req.session.currentUser
+  next()
 })
 
 // view engine setup
