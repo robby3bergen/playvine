@@ -2,15 +2,16 @@
 const express = require('express');
 const router = express.Router();
 const MusicSession = require('../models/musicSession');
-const checkLogin = require('../middleware/checkLogIn.js');
 const checkCurrentUser = require('../middleware/checkCurrentUser.js');
 
 /* GET create session page */
-router.get('/create', checkLogin.isLoggedIn, (req, res, next) => {
+router.get('/create', (req, res, next) => {
+  // login validation
   res.render('sessions/create', { title: 'Playvine | Create a session ' });
 });
 
-router.post('/', checkLogin.isLoggedIn, (req, res, next) => {
+router.post('/', (req, res, next) => {
+  // login validation
   // create a new session, then make a for loop to
   // iterate through the roles chosen in the form
   // and add them to the instrument key
