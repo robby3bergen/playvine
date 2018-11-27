@@ -1,10 +1,10 @@
-'use strict'
+'use strict';
 
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const ObjectId = Schema.Types.ObjectId
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
-const sessionSchema = new Schema({
+const musicSessionSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -38,8 +38,8 @@ const sessionSchema = new Schema({
     type: ObjectId,
     ref: 'User'
   }
-})
+});
 
-const _Session = mongoose.model('_Session', sessionSchema)
+const MusicSession = mongoose.model('MusicSession', musicSessionSchema);
 
-module.exports = _Session
+module.exports = MusicSession;
