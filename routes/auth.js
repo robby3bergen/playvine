@@ -45,7 +45,7 @@ router.post('/signup', checkLogin.isLoggedIn, checkFields.requireField, (req, re
     } else {
       req.flash('userCreated', 'Your are ready to go!')
       req.session.currentUser = newUser
-      return res.redirect('/#list-preview')
+      return res.redirect('/sessions')
     }
   })
 })
@@ -72,7 +72,7 @@ router.post('/login', checkLogin.isLoggedIn, (req, res, next) => {
       }
       if (bcrypt.compareSync(password /* provided password */, user.password/* hashed password */)) {
         req.session.currentUser = user
-        res.redirect('/#list-preview')
+        res.redirect('/sessions')
       } else {
         req.flash('message', 'Incorrect username or password. Try again.')
         req.flash('FormData', username)
@@ -87,7 +87,7 @@ router.post('/logout', (req, res, next) => {
   if (req.session.currentUser) {
     delete req.session.currentUser
   }
-  res.redirect('/auth/login')
+  res.redirect('/')
 })
 
 module.exports = router

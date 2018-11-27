@@ -35,4 +35,12 @@ router.post('/', (req, res, next) => {
     .catch(next)
 })
 
+/* GET session list page */
+router.get('/', (req, res, next) => {
+  if (req.session.currentUser) {
+    return res.render('sessions', { title: 'Playvine | Sessions' })
+  }
+  return res.redirect('/')
+})
+
 module.exports = router
