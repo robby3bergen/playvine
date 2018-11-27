@@ -3,7 +3,7 @@
 const checkLogIn = {};
 checkLogIn.isLoggedIn = (req, res, next) => {
   if (req.session.currentUser) {
-    return res.redirect('/#list-preview');
+    return res.redirect('/sessions');
   }
   next();
 };

@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.js');
 const checkLogin = require('../middleware/checkLogIn.js');
 const checkFields = require('../middleware/checkFields.js');
+const checkCurrentUser = require('../middleware/checkCurrentUser.js');
 
 const saltRounds = 10;
 
@@ -83,10 +84,8 @@ router.post('/login', checkLogin.isLoggedIn, (req, res, next) => {
 });
 
 /* POST logout */
-router.post('/logout', (req, res, next) => {
-  if (req.session.currentUser) {
-    delete req.session.currentUser;
-  }
+router.post('/logout', checkCurrentUser.hasOpenSession, (req, res, next) => {
+  delete req.session.currentUser;
   res.redirect('/');
 });
 
