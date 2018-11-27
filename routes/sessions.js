@@ -7,10 +7,11 @@ const musicSession = require('../models/musicSession');
 /* GET home page. */
 router.get('/', (req, res, next) => {
   if (req.session.currentUser) {
-    musicSession.find({})
+    musicSession.find({}).sort({ location: 1, startTime: 1 })
       .then((musicSessions) => {
+        // musicSessions.startTime = Moment(musicSessions.startTime).format('DD/MM/YYYY');
         console.log('musicSessions: ' + musicSessions);
-        return res.render('sessions', { title: 'Playvine | Sessions' });
+        return res.render('sessions', { title: 'Playvine | Sessions', musicSessions });
       })
       .catch(next);
   } else {
