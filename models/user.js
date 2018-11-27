@@ -1,6 +1,6 @@
 'use strict';
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -20,7 +20,7 @@ const userSchema = new Schema({
   },
   instruments: [{
     type: String,
-    enum: ['Guitar', 'Drums', 'Bass', 'Keyboard', 'Trumpet', 'Saxophone', 'Strings', 'Vocals']
+    enum: ['guitar', 'drums', 'bass', 'keyboard', 'trumpet', 'saxophone', 'strings', 'vocals']
     // required: true
   }],
   location: {
