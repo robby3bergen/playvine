@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
-const sessionSchema = new Schema({
+const musicSessionSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -22,7 +22,7 @@ const sessionSchema = new Schema({
   roles: [{
     instrument: {
       type: String,
-      enum: ['Guitar', 'Drums', 'Bass', 'Keyboard', 'Trumpet', 'Saxophone', 'Strings', 'Vocals'],
+      enum: ['guitar', 'drums', 'bass', 'keyboard', 'trumpet', 'saxophone', 'strings', 'vocals'],
       required: true
     },
     requests: [{
@@ -40,6 +40,6 @@ const sessionSchema = new Schema({
   }
 })
 
-const _Session = mongoose.model('_Session', sessionSchema)
+const MusicSession = mongoose.model('musicSession', musicSessionSchema)
 
-module.exports = _Session
+module.exports = MusicSession
