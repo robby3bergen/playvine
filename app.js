@@ -65,10 +65,6 @@ hbs.registerPartials(path.join(__dirname, '/views/partials'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // use flash
-app.use(session({ cookie: { maxAge: 60000 },
-  secret: 'woot',
-  resave: false,
-  saveUninitialized: false }));
 app.use(flash());
 
 // default route handlers

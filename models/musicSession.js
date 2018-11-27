@@ -22,7 +22,7 @@ const musicSessionSchema = new Schema({
   roles: [{
     instrument: {
       type: String,
-      enum: ['Guitar', 'Drums', 'Bass', 'Keyboard', 'Trumpet', 'Saxophone', 'Strings', 'Vocals'],
+      enum: ['guitar', 'drums', 'bass', 'keyboard', 'trumpet', 'saxophone', 'strings', 'vocals'],
       required: true
     },
     requests: [{

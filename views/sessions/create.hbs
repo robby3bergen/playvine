@@ -1,0 +1,73 @@
+<h1>Create a new session</h1>
+
+  <form method="POST" action="/sessions">
+
+    <div class="field">
+      <label>Session Name</label>
+      <input type="text" name="name" required />
+    </div>
+
+    <div class="field">
+      <label>When will it take place?</label>
+      <input type="datetime-local" name="startTime" required />
+    </div>
+
+    <div class="field">
+      <label>Location</label>
+      <input type="text" name="location" required />
+    </div>
+
+    <div class="field">
+      <label>Instruments needed</label>
+      <ul class="roles">
+        <li>
+          <input type="checkbox" name="roles" value="guitar"/>
+          <label for="guitar">Guitar</label>
+        </li>
+        <li>
+          <input type="checkbox" name="roles" value="drums"/>
+          <label for="drums">Drums</label>
+        </li>
+        <li>
+          <input type="checkbox" name="roles" value="bass"/>
+          <label for="bass">Bass</label>
+        </li>
+        <li>
+          <input type="checkbox" name="roles" value="keyboard"/>
+          <label for="keyboard">Keyboard</label>
+        </li>
+        <li>
+          <input type="checkbox" name="roles" value="trumpet"/>
+          <label for="trumpet">Trumpet</label>
+        </li>
+        <li>
+          <input type="checkbox" name="roles" value="saxophone"/>
+          <label for="saxophone">Saxophone</label>
+        </li>
+        <li>
+          <input type="checkbox" name="roles" value="strings"/>
+          <label for="strings">Strings</label>
+        </li>
+        <li>
+          <input type="checkbox" name="roles" value="vocals"/>
+          <label for="vocals">Vocals</label>
+        </li>
+      </ul>
+    </div>
+
+    <div class="field">
+      <label>Some info about this session</label>
+      <input type="text" name="sessionInfo" required />
+    </div>
+
+    <div class="field submit">
+      <button type="submit">Save</button>
+    </div>
+
+    <!-- 
+    When form is created it should change to update option 
+    <div class="field submit">
+    <button type="submit">Save</button>
+    </div>
+    -->
+  </form>
