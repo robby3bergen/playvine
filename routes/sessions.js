@@ -1,14 +1,9 @@
 'use strict';
+
 const express = require('express');
 const router = express.Router();
 const MusicSession = require('../models/musicSession');
 const checkCurrentUser = require('../middleware/checkCurrentUser.js');
-
-/* GET create session page */
-router.get('/create', (req, res, next) => {
-  // login validation
-  res.render('sessions/create', { title: 'Playvine | Create a session ' });
-});
 
 router.post('/', (req, res, next) => {
   // login validation
@@ -37,8 +32,19 @@ router.post('/', (req, res, next) => {
 });
 
 /* GET session list page */
-router.get('/', checkCurrentUser.hasOpenSession, (req, res, next) => {
-  res.render('sessions', { title: 'Playvine | Sessions' });
+router.get('/', (req, res, next) => {
+  // create middleware for !req.session.currentUser
+  if (req.session.currentUser) {
+    MusicSession.find({}).sort({ location: 1, startTime: 1 })
+      .then((musicSessions) => {
+        // musicSessions.startTime = Moment(musicSessions.startTime).format('DD/MM/YYYY');
+        console.log('musicSessions: ' + musicSessions);
+        return res.render('sessions', { title: 'Playvine | Sessions', musicSessions });
+      })
+      .catch(next);
+  } else {
+    return res.redirect('/');
+  }
 });
 
 module.exports = router;

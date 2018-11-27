@@ -322,3 +322,14 @@ img.navbar-logo {
 }
 
 /* ---- section ---- */
+
+.session-location {
+  font-size: small;
+  margin-bottom: 0;
+}
+
+.session-time {
+  font-size: small;
+  font-weight: normal;
+  margin-top: 2px;
+}

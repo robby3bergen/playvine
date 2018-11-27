@@ -6,25 +6,14 @@
   <p>
     You can also <a href="/sessions/create">create your own</a>.
   </p>
-  <article class="showcase">
-    <h3 class="header-info">Session name</h3>
-    <p class="session-info">
-      1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.
-    </p>
-  </article>
-  <article class="showcase">
-    <h3 class="header-info">Session name 2</h3>
-    <p class="session-info">
-      2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.
-    </p>
-  </article>
-  <article class="showcase">
-    <h3 class="header-info">Session name 3</h3>
-    <p class="session-info">
-      3 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.
-    </p>
-  </article>
+  {{#each musicSessions}}
+    <article class="showcase">
+      <h3 class="header-info">{{this.name}}</h3>
+      <h4 class="session-location">{{this.location}}</h4>
+      <h4 class="session-time">{{this.startTime}}</h4>
+      <p class="session-info">
+        {{this.sessionInfo}}
+      </p>
+    </article>
+  {{/each}}
 </main>

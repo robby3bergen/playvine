@@ -40,6 +40,6 @@ const musicSessionSchema = new Schema({
   }
 });
 
-const MusicSession = mongoose.model('musicSession', musicSessionSchema);
+const MusicSession = mongoose.model('MusicSession', musicSessionSchema);
 
 module.exports = MusicSession;
