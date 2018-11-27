@@ -2,15 +2,15 @@
 const express = require('express');
 const router = express.Router();
 const MusicSession = require('../models/musicSession');
+const checkLogin = require('../middleware/checkLogIn.js');
+const checkCurrentUser = require('../middleware/checkCurrentUser.js');
 
 /* GET create session page */
-router.get('/create', (req, res, next) => {
-  // login validation
+router.get('/create', checkLogin.isLoggedIn, (req, res, next) => {
   res.render('sessions/create', { title: 'Playvine | Create a session ' });
 });
 
-router.post('/', (req, res, next) => {
-  // VALIDATION
+router.post('/', checkLogin.isLoggedIn, (req, res, next) => {
   // create a new session, then make a for loop to
   // iterate through the roles chosen in the form
   // and add them to the instrument key
@@ -36,12 +36,8 @@ router.post('/', (req, res, next) => {
 });
 
 /* GET session list page */
-router.get('/', (req, res, next) => {
-  // create middleware for !req.session.currentUser
-  if (req.session.currentUser) {
-    return res.render('sessions', { title: 'Playvine | Sessions' });
-  }
-  return res.redirect('/');
+router.get('/', checkCurrentUser.hasOpenSession, (req, res, next) => {
+  res.render('sessions', { title: 'Playvine | Sessions' });
 });
 
 module.exports = router;

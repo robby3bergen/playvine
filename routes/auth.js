@@ -13,6 +13,8 @@ const saltRounds = 10;
 
 /* GET signup page. */
 router.get('/signup', checkLogin.isLoggedIn, (req, res, next) => {
+  // 'FormData' stores data entered by user in the form
+  // to prefill it when updating so progress isnt lost
   const usernameData = req.flash('FormData');
   const data = {
     messages: req.flash('message'),

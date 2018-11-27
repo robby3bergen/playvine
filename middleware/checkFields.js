@@ -9,8 +9,8 @@ checkFields.requireField = (req, res, next) => {
   }
   if (password.length < 8) {
     req.flash('message', 'Password should be at least 8 characters');
-    // 'FormData' stores the data entered by the user in the form
-    // to prefill it when updating
+    // 'FormData' stores data entered by user in the form
+    // to prefill it when updating so progress isnt lost
     req.flash('FormData', username);
     return res.redirect(`/auth${req.path}`);
   }
