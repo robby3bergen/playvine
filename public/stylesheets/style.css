@@ -234,11 +234,6 @@ article.showcase p.session-info {
   padding-top: 70px;
 }
 
-#auth-form {
-  padding: 5%;
-  width: 100%;
-}
-
 .field label, input {
   display: block;
   width: 100%;
