@@ -255,14 +255,26 @@ article.showcase p.session-info {
   margin: 1rem 0 0 0;
 }
 
+#creation form {
+  margin: 0 0 2rem 0;
+}
+
 #creation label  {
   width: 90%;
   padding-top: 1rem;
+  font-weight: 500;
 }
 
 #creation input.boxy  {
   width: 90%;
+  background-color: #fbfbfb;
   box-shadow: 1px 3px 5px rgba(86, 79, 78, 1);
+}
+
+#creation fieldset.roles {
+  padding-top: 1rem;
+  padding-bottom: 1.25rem;
+  border: 0;
 }
 
 #creation input.instrument {
@@ -275,7 +287,7 @@ article.showcase p.session-info {
   -webkit-appearance: none;
   width: 1.25rem;
   height: 1.25rem;
-  background: #fff;
+  background: #fbfbfb;
   border-radius: 5px;
   border: 2px solid #555;
   box-shadow: 2px 3px 5px rgba(86, 79, 78, 0.7);
@@ -286,11 +298,6 @@ article.showcase p.session-info {
   background: #b9b0dd;
 }
 
-#creation fieldset.roles {
-  padding-top: 1rem;
-  border: 0;
-}
-
 #creation div.inline-field {
   display: inline-block;
   margin: 0;
@@ -298,9 +305,12 @@ article.showcase p.session-info {
   padding-top: 1.25rem;
 }
 
-/* #creation div.inline-field label {
-  padding-bottom: .9rem;
-} */
+#creation div.cancel {
+  display: inline-block;
+  margin: 0;
+  width: 90%;
+  padding: 0 0 0 2.3rem;
+}
 
 /* ---- testing ---- */
 
