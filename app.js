@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 // set up Express
 const express = require('express');
 const path = require('path');
@@ -27,7 +29,7 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const sessionRouter = require('./routes/sessions');
 
-mongoose.connect('mongodb://localhost/playvine', {
+mongoose.connect(process.env.MONGODB_URI, {
   keepAlive: true,
   useNewUrlParser: true,
   reconnectTries: Number.MAX_VALUE

@@ -1,18 +1,21 @@
 'use strict';
 
+// packages
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
+
+// javascript files
 const MusicSession = require('../models/musicSession');
 const checkCurrentUser = require('../middleware/checkCurrentUser.js');
 
 /* GET session list page */
 router.get('/', (req, res, next) => {
   // create middleware for !req.session.currentUser
+
   if (req.session.currentUser) {
     MusicSession.find({}).sort({ location: 1, startTime: 1 })
       .then((musicSessions) => {
-        // musicSessions.startTime = Moment(musicSessions.startTime).format('DD/MM/YYYY');
-        console.log('musicSessions: ' + musicSessions);
         return res.render('sessions', { title: 'Playvine | Sessions', musicSessions });
       })
       .catch(next);
