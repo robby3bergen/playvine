@@ -25,12 +25,30 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/create', (req, res, next) => {
-  // login validation
-  res.render('sessions/create', { title: 'Playvine | Create a session ' });
+  /* VALIDATE IF USER IS LOGGED IN */
+  const enteredData = req.flash('FormData');
+  const data = {
+    messages: req.flash('message'),
+    title: 'Playvine | Create a session',
+    choiceData: enteredData
+  };
+  res.render('sessions/create', data);
 });
 
 router.post('/', (req, res, next) => {
-  // login validation
+  /* VALIDATE IF USER IS LOGGED IN */
+
+  /* define the instruments key as an array, so that it can take in a single choice
+  passed by roles in the body of the request (a single choice is just a string) */
+  let instruments = req.body.roles;
+  if (typeof instruments === 'string') {
+    instruments = [instruments];
+  }
+  // require user instrument choice
+  if (!instruments) {
+    req.flash('message', 'Choose at least one instrument');
+    return res.redirect('/sessions/create');
+  }
   // create a new session, then make a for loop to
   // iterate through the roles chosen in the form
   // and add them to the instrument key
@@ -38,11 +56,12 @@ router.post('/', (req, res, next) => {
     name: req.body.name,
     startTime: req.body.startTime,
     location: req.body.location,
-    sessionInfo: req.body.sessionInfo
+    sessionInfo: req.body.sessionInfo,
+    instruments
   });
-  for (let i = 0; i < req.body.roles.length; i++) {
+  for (let i = 0; i < instruments.length; i++) {
     newSessionData.roles[i] = {
-      instrument: req.body.roles[i]
+      instrument: instruments[i]
     };
   }
   MusicSession.create(newSessionData)
