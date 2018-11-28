@@ -52,7 +52,6 @@ app.use(session({
 
 app.use((req, res, next) => {
   app.locals.currentUser = req.session.currentUser;
-  app.locals.moment = moment;
   next();
 });
 

@@ -13,28 +13,28 @@
 
     <div class="field">
       <label>Session Name</label>
-      <input type="text" name="name" class="boxy" required />
+      <input type="text" name="name" class="boxy" value="{{this.name}}" required />
     </div>
 
     <div class="field">
       <label>When will it take place?</label>
-      <input type="datetime-local" name="startTime" class="boxy" required max="2050-01-01T00:00" />
+      <input type="datetime-local" name="startTime" class="boxy" value="{{this.startTime}}" required max="2050-01-01T00:00" />
     </div>
 
     <div class="field">
       <label>Location</label>
-      <input type="text" name="location" class="boxy" required />
+      <input type="text" name="location" class="boxy" value="{{this.location}}" required />
     </div>
 
     <div class="field">
       <label>Some info about the session</label>
-      <input type="text" name="sessionInfo" class="boxy" required />
+      <input type="text" name="sessionInfo" class="boxy" value="{{this.sessionInfo}}" required />
     </div>
 
     <fieldset class="roles">
       <h3>Instruments needed</h3>
       <div class="inline-field">
-        <input class="instrument" type="checkbox" name="roles" value="guitar" id="guitar" />
+        <input class="instrument" type="checkbox" name="roles" value="guitar" checked id="guitar" />
         <label for="guitar">Guitar</label>
       </div>
       <div class="inline-field">

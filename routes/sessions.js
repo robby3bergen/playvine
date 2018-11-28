@@ -19,7 +19,7 @@ router.get('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
         musicSessions.forEach(session => {
           session.formattedStartTime = moment(session.startTime).format('DD MMMM YYYY — HH:mm');
         });
-        return res.render('sessions', { title: 'Playvine | Sessions', musicSessions });
+        return res.render('sessions/sessions-list', { title: 'Playvine | Sessions', musicSessions });
       })
       .catch(next);
   } else {
@@ -27,6 +27,7 @@ router.get('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   }
 });
 
+/* GET create session page */
 router.get('/create', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   const enteredData = req.flash('FormData');
   const data = {
@@ -35,6 +36,28 @@ router.get('/create', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
     choiceData: enteredData
   };
   res.render('sessions/create', data);
+});
+
+/* GET modify session page */
+router.get('/:id', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
+  // check if user is the creator of this session
+  //
+
+  console.log('parameters: ' + req.params.id);
+  MusicSession.findById(req.params.id)
+    .then(session => {
+      const data = {
+        title: 'Playvine | Modify your session',
+        name: session.name,
+        startTime: session.startTime,
+        location: session.location,
+        roles: session.roles,
+        sessionInfo: session.sessionInfo
+      };
+      console.log('data: ' + data.name);
+      res.render('sessions/create', data);
+    })
+    .catch(next);
 });
 
 router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
