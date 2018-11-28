@@ -8,6 +8,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const hbs = require('hbs');
 const logger = require('morgan');
+const moment = require('moment');
 
 // start express
 const app = express();
@@ -51,6 +52,7 @@ app.use(session({
 
 app.use((req, res, next) => {
   app.locals.currentUser = req.session.currentUser;
+  app.locals.moment = moment;
   next();
 });
 

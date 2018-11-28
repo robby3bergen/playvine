@@ -16,6 +16,9 @@ router.get('/', (req, res, next) => {
   if (req.session.currentUser) {
     MusicSession.find({}).sort({ location: 1, startTime: 1 })
       .then((musicSessions) => {
+        musicSessions.forEach(session => {
+          session.formattedStartTime = moment(session.startTime).format('DD MMMM YYYY — HH:mm');
+        });
         return res.render('sessions', { title: 'Playvine | Sessions', musicSessions });
       })
       .catch(next);
