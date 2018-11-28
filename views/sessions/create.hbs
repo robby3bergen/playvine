@@ -3,6 +3,14 @@
 
   <form method="POST" action="/sessions">
 
+    {{#if messages.length}}
+      {{#each messages}}
+        <p class="validation">
+          {{this}}
+        </p>
+      {{/each}}
+    {{/if}}
+
     <div class="field">
       <label>Session Name</label>
       <input type="text" name="name" class="boxy" required />
@@ -10,7 +18,7 @@
 
     <div class="field">
       <label>When will it take place?</label>
-      <input type="datetime-local" name="startTime" class="boxy" required />
+      <input type="datetime-local" name="startTime" class="boxy" required max="2050-01-01T00:00" />
     </div>
 
     <div class="field">
@@ -52,7 +60,7 @@
         <input class="instrument" type="checkbox" name="roles" value="vocals" id="vocals" />
         <label for="vocals">Vocals</label></div>
     </fieldset>
-    
+
     <div class="field">
       <button class="button" type="submit">Save</button>
     </div>

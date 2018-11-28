@@ -312,6 +312,19 @@ article.showcase p.session-info {
   padding: 0 0 0 2.3rem;
 }
 
+#creation p.validation {
+  display: block;
+  width: 90%;
+  color: #f8f7f9;
+  font-weight: bold;
+  background-color: #994949;
+  opacity: 0.7;
+  border-radius: .25rem;
+  padding: 0.625rem;
+  margin: 0 auto;
+  font-size: .84rem;
+}
+
 /* ---- testing ---- */
 
 p.testing {
@@ -369,6 +382,7 @@ button.nav-logout {
   border: none; 
   padding:0;
   font: inherit;
+  line-height: 1rem;
 }
 
 img.navbar-logo {

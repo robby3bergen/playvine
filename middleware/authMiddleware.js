@@ -1,7 +1,14 @@
 'use strict';
+const authMiddleware = {};
 
-const checkFields = {};
-checkFields.requireField = (req, res, next) => {
+authMiddleware.userIsLoggedIn = (req, res, next) => {
+  if (req.session.currentUser) {
+    return res.redirect('/sessions');
+  }
+  next();
+};
+
+authMiddleware.requireField = (req, res, next) => {
   const { username, password } = req.body;
   if (!username) {
     req.flash('message', 'Username shouldn\'t be empty');
@@ -17,4 +24,11 @@ checkFields.requireField = (req, res, next) => {
   next();
 };
 
-module.exports = checkFields;
+authMiddleware.userHasOpenSession = (req, res, next) => {
+  if (!req.session.currentUser) {
+    return res.redirect('/auth/login');
+  }
+  next();
+};
+
+module.exports = authMiddleware;

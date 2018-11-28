@@ -5,14 +5,12 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 
 const User = require('../models/user.js');
-const checkLogin = require('../middleware/checkLogIn.js');
-const checkFields = require('../middleware/checkFields.js');
-const checkCurrentUser = require('../middleware/checkCurrentUser.js');
+const authMiddleware = require('../middleware/authMiddleware.js');
 
 const saltRounds = 10;
 
 /* GET signup page. */
-router.get('/signup', checkLogin.isLoggedIn, (req, res, next) => {
+router.get('/signup', authMiddleware.userIsLoggedIn, (req, res, next) => {
   // 'FormData' stores data entered by user in the form
   // to prefill it when updating so progress isnt lost
   const usernameData = req.flash('FormData');
@@ -25,7 +23,7 @@ router.get('/signup', checkLogin.isLoggedIn, (req, res, next) => {
 });
 
 /* POST signup */
-router.post('/signup', checkLogin.isLoggedIn, checkFields.requireField, (req, res, next) => {
+router.post('/signup', authMiddleware.userIsLoggedIn, authMiddleware.requireField, (req, res, next) => {
   const { username, password } = req.body;
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashedPassword = bcrypt.hashSync(password, salt);
@@ -54,7 +52,7 @@ router.post('/signup', checkLogin.isLoggedIn, checkFields.requireField, (req, re
 });
 
 /* GET login page. */
-router.get('/login', checkLogin.isLoggedIn, (req, res, next) => {
+router.get('/login', authMiddleware.userIsLoggedIn, (req, res, next) => {
   const usernameData = req.flash('FormData');
   const data = {
     messages: req.flash('message'),
@@ -65,7 +63,7 @@ router.get('/login', checkLogin.isLoggedIn, (req, res, next) => {
 });
 
 /* POST login */
-router.post('/login', checkLogin.isLoggedIn, (req, res, next) => {
+router.post('/login', authMiddleware.userIsLoggedIn, (req, res, next) => {
   const { username, password } = req.body;
   User.findOne({ username })
     .then((user) => {
@@ -86,7 +84,7 @@ router.post('/login', checkLogin.isLoggedIn, (req, res, next) => {
 });
 
 /* POST logout */
-router.post('/logout', checkCurrentUser.hasOpenSession, (req, res, next) => {
+router.post('/logout', authMiddleware.userHasOpenSession, (req, res, next) => {
   delete req.session.currentUser;
   res.redirect('/');
 });
