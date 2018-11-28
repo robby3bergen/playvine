@@ -1,68 +1,64 @@
-<section id="creation">
+<section id="creation" class="container">
   <h1>Create a new session</h1>
 
   <form method="POST" action="/sessions">
 
     <div class="field">
       <label>Session Name</label>
-      <input type="text" name="name" required />
+      <input type="text" name="name" class="boxy" required />
     </div>
 
     <div class="field">
       <label>When will it take place?</label>
-      <input type="datetime-local" name="startTime" required />
+      <input type="datetime-local" name="startTime" class="boxy" required />
     </div>
 
     <div class="field">
       <label>Location</label>
-      <input type="text" name="location" required />
+      <input type="text" name="location" class="boxy" required />
     </div>
 
     <div class="field">
-      <label>Instruments needed</label>
-      <ul class="roles">
-        <li>
-          <input type="checkbox" name="roles" value="guitar" />
-          <label for="guitar">Guitar</label>
-        </li>
-        <li>
-          <input type="checkbox" name="roles" value="drums" />
-          <label for="drums">Drums</label>
-        </li>
-        <li>
-          <input type="checkbox" name="roles" value="bass" />
-          <label for="bass">Bass</label>
-        </li>
-        <li>
-          <input type="checkbox" name="roles" value="keyboard" />
-          <label for="keyboard">Keyboard</label>
-        </li>
-        <li>
-          <input type="checkbox" name="roles" value="trumpet" />
-          <label for="trumpet">Trumpet</label>
-        </li>
-        <li>
-          <input type="checkbox" name="roles" value="saxophone" />
-          <label for="saxophone">Saxophone</label>
-        </li>
-        <li>
-          <input type="checkbox" name="roles" value="strings" />
-          <label for="strings">Strings</label>
-        </li>
-        <li>
-          <input type="checkbox" name="roles" value="vocals" />
-          <label for="vocals">Vocals</label>
-        </li>
-      </ul>
+      <label>Some info about the session</label>
+      <input type="text" name="sessionInfo" class="boxy" required />
     </div>
 
+    <fieldset class="roles">
+      <h3>Instruments needed</h3>
+      <div class="inline-field">
+        <input class="instrument" type="checkbox" name="roles" value="guitar" id="guitar" />
+        <label for="guitar">Guitar</label>
+      </div>
+      <div class="inline-field">
+        <input class="instrument" type="checkbox" name="roles" value="drums" id="drums" />
+        <label for="drums">Drums</label>
+      </div>
+      <div class="inline-field">
+        <input class="instrument" type="checkbox" name="roles" value="bass" id="bass" />
+        <label for="bass">Bass</label></div>
+      <div class="inline-field">
+        <input class="instrument" type="checkbox" name="roles" value="keyboard" id="keyboard" />
+        <label for="keyboard">Keyboard</label></div>
+      <div class="inline-field">
+        <input class="instrument" type="checkbox" name="roles" value="trumpet" id="trumpet" />
+        <label for="trumpet">Trumpet</label></div>
+      <div class="inline-field">
+        <input class="instrument" type="checkbox" name="roles" value="saxophone" id="saxophone" />
+        <label for="saxophone">Saxophone</label></div>
+      <div class="inline-field">
+        <input class="instrument" type="checkbox" name="roles" value="strings" id="strings" />
+        <label for="strings">Strings</label></div>
+      <div class="inline-field">
+        <input class="instrument" type="checkbox" name="roles" value="vocals" id="vocals" />
+        <label for="vocals">Vocals</label></div>
+    </fieldset>
+    
     <div class="field">
-      <label>Some info about this session</label>
-      <input type="text" name="sessionInfo" required />
+      <button class="button" type="submit">Save</button>
     </div>
 
-    <div class="field">
-      <button type="submit">Save</button>
+    <div class="cancel">
+      <p>Or <a href="/sessions">cancel and go back</a>.</p>
     </div>
 
     <!-- 

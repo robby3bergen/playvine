@@ -239,7 +239,7 @@ article.showcase p.session-info {
   display: block;
   width: 100%;
   margin: 5px auto;
-  /* line-height: 25px; */
+  line-height: 25px;
 }
 
 .field.submit {
@@ -251,10 +251,66 @@ article.showcase p.session-info {
 
 /* session creation form */
 
-section.creation {
-  background-color: rgb(248, 248, 248) ;
+#creation h3 {
+  margin: 1rem 0 0 0;
 }
 
+#creation form {
+  margin: 0 0 2rem 0;
+}
+
+#creation label  {
+  width: 90%;
+  padding-top: 1rem;
+  font-weight: 500;
+}
+
+#creation input.boxy  {
+  width: 90%;
+  background-color: #fbfbfb;
+  box-shadow: 1px 3px 5px rgba(86, 79, 78, 1);
+}
+
+#creation fieldset.roles {
+  padding-top: 1rem;
+  padding-bottom: 1.25rem;
+  border: 0;
+}
+
+#creation input.instrument {
+  display: inline-block;
+  width: 20%;
+  margin: 0;
+}
+
+#creation input[type="checkbox"]  {
+  -webkit-appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: #fbfbfb;
+  border-radius: 5px;
+  border: 2px solid #555;
+  box-shadow: 2px 3px 5px rgba(86, 79, 78, 0.7);
+  margin-right: .6rem;
+}
+
+#creation input[type='checkbox']:checked {
+  background: #b9b0dd;
+}
+
+#creation div.inline-field {
+  display: inline-block;
+  margin: 0;
+  width: 90%;
+  padding-top: 1.25rem;
+}
+
+#creation div.cancel {
+  display: inline-block;
+  margin: 0;
+  width: 90%;
+  padding: 0 0 0 2.3rem;
+}
 
 /* ---- testing ---- */
 

@@ -7,7 +7,7 @@ const moment = require('moment');
 
 // javascript files
 const MusicSession = require('../models/musicSession');
-const checkCurrentUser = require('../middleware/checkCurrentUser.js');
+// const checkCurrentUser = require('../middleware/checkCurrentUser.js');
 
 /* GET session list page */
 router.get('/', (req, res, next) => {
