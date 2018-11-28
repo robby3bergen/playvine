@@ -109,11 +109,12 @@ main article.showcase p {
 }
 
 .field p {
-  font-size: small;
+  font-size: .9rem;
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
 }
 
 .field a {
+  font-weight: bold;
   color: #f8f7f9;
 }
 
@@ -137,6 +138,13 @@ main article.showcase p {
   background-color: #f8f7f9;
   opacity: 0.7;
   padding: 10px;
+}
+
+/* ---- session detail typography ---- */
+
+main.header-info h4.detail {
+  font-size: .7rem;
+  text-decoration: underline;
 }
 
 /* ---- layout ---- */
@@ -194,6 +202,10 @@ section.header-info h1 {
 
 section.header-info p {
   margin: 0.9375rem 0 1.25rem 0;
+}
+
+section.header-info a.fullwidth {
+  width: 100%;
 }
 
 main.header-info h1 {

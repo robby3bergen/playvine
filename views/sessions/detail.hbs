@@ -1,0 +1,28 @@
+<main class="container header-info">
+  <article class="showcase">
+    <h4 class="detail">Session details</h4>
+    <h3 class="header-info">{{musicSession.name}}</h3>
+    <h4 class="session-location">{{musicSession.location}}</h4>
+    <h4 class="session-time">{{musicSession.formattedStartTime}}</h4>
+    <p class="session-info">
+      {{musicSession.sessionInfo}}
+    </p>
+
+    {{! -- <form method="POST" action="/requests"> --}}
+      <fieldset>
+        <h4>Instruments needed</h4>
+        {{#each musicSession.roles}}
+        <div class="inline-field">
+          <input class="instrument" type="checkbox" name="roles" value="" id="instrument" />
+          <label for="instrument">{{musicSession.roles}}</label>
+        </div>
+        {{/each}}
+        {{!-- {{#if currentUserId === musicSession.creatorId }}
+        <a href="/sessions/{{session._id}}/create">Modify this session</a>
+        {{else}} --}}
+        <button class="button" type="submit">Join this session</button>
+        {{!-- {{/if}} --}}
+      </fieldset>
+    {{! --</form> --}}
+  </article>
+</main>

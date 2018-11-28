@@ -9,12 +9,12 @@
       Or check out all sessions in your area and join with a click.
     </p>
     {{#unless currentUser}}
-    <a href="/auth/signup" class="button">Sign me up!</a>
+    <a href="/auth/signup" class="button fullwidth">Sign me up!</a>
     <div class="field">
       <p>Already a member? <a href="/auth/login">Login</a>.</p>
     </div>
     {{else}}
-     <a href="/sessions/create" class="button">Create session</a>
+    <a href="/sessions/create" class="button">Create session</a>
     {{/unless}}
   </section>
   <div class="baby-separator"></div>
@@ -28,25 +28,12 @@
   <p>
     You can also <a href="/sessions/create">create your own</a>.
   </p>
+
+  {{#each musicSessions}}
   <article class="showcase">
-    <h3 class="header-info">Session name</h3>
+    <h3 class="header-info">{{this.name}}</h3>
     <p class="session-info">
-      1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.
+      {{this.sessionInfo}}
     </p>
   </article>
-  <article class="showcase">
-    <h3 class="header-info">Session name 2</h3>
-    <p class="session-info">
-      2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.
-    </p>
-  </article>
-  <article class="showcase">
-    <h3 class="header-info">Session name 3</h3>
-    <p class="session-info">
-      3 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.
-    </p>
-  </article>
-</main>
+  {{/each}}

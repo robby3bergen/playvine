@@ -11,8 +11,6 @@ const sessionMiddleware = require('../middleware/sessionMiddleware.js');
 
 /* GET session list page */
 router.get('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
-  // create middleware for !req.session.currentUser
-
   if (req.session.currentUser) {
     MusicSession.find({}).sort({ location: 1, startTime: 1 })
       .then((musicSessions) => {
@@ -93,6 +91,17 @@ router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
       res.redirect('/sessions');
       /* redirect the user to the same route you used for
       the action= field in the hbs form */
+    })
+    .catch(next);
+});
+
+/* GET session details page */
+router.get('/:id/detail', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
+  const id = req.params.id;
+  MusicSession.findById(id)
+    .then((result) => {
+      console.log(result);
+      res.render('sessions/detail', { musicSession: result });
     })
     .catch(next);
 });
