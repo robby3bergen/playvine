@@ -7,10 +7,10 @@ const moment = require('moment');
 
 // javascript files
 const MusicSession = require('../models/musicSession');
-// const checkCurrentUser = require('../middleware/checkCurrentUser.js');
+const sessionMiddleware = require('../middleware/sessionMiddleware.js');
 
 /* GET session list page */
-router.get('/', (req, res, next) => {
+router.get('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   // create middleware for !req.session.currentUser
 
   if (req.session.currentUser) {
@@ -24,8 +24,7 @@ router.get('/', (req, res, next) => {
   }
 });
 
-router.get('/create', (req, res, next) => {
-  /* VALIDATE IF USER IS LOGGED IN */
+router.get('/create', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   const enteredData = req.flash('FormData');
   const data = {
     messages: req.flash('message'),
@@ -35,9 +34,7 @@ router.get('/create', (req, res, next) => {
   res.render('sessions/create', data);
 });
 
-router.post('/', (req, res, next) => {
-  /* VALIDATE IF USER IS LOGGED IN */
-
+router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   /* define the instruments key as an array, so that it can take in a single choice
   passed by roles in the body of the request (a single choice is just a string) */
   let instruments = req.body.roles;
