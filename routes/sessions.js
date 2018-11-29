@@ -99,9 +99,9 @@ router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
 router.get('/:id/detail', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   const id = req.params.id;
   MusicSession.findById(id)
-    .then((result) => {
-      console.log(result);
-      res.render('sessions/detail', { musicSession: result });
+    .then((session) => {
+      session.formattedStartTime = moment(session.startTime).format('DD MMMM YYYY — HH:mm');
+      res.render('sessions/detail', { musicSession: session, title: 'Playvine | Session details' });
     })
     .catch(next);
 });
