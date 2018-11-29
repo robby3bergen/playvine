@@ -45,7 +45,7 @@ router.post('/signup', authMiddleware.userIsLoggedIn, authMiddleware.requireFiel
       return res.redirect('/auth/signup');
     } else {
       req.flash('userCreated', 'Your are ready to go!');
-      req.session.currentUser = newUser;
+      req.session.currentUser = user;
       return res.redirect('/sessions');
     }
   });

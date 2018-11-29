@@ -80,9 +80,10 @@ router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
 /* ---------------- modify session page ---------------- */
 // GET
 router.get('/:id/edit', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
+  console.log('Current User id is ' + req.session.currentUser._id);
   MusicSession.findById(req.params.id)
     .then((session) => {
-      console.log('Current User id is ' + req.session.currentUser._id);
+      console.log('Creator id for the session is ' + session.creatorId);
       /* MONGOOSE DOESN'T LET YOU COMPARE OBJECT IDS WITH AN ===
       OPERATOR, SO YOU NEED TO USE .equals() TO BE ABLE TO */
       if (session.creatorId.equals(req.session.currentUser._id)) {
@@ -98,7 +99,7 @@ router.get('/:id/edit', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
           roles: session.roles,
           sessionInfo: session.sessionInfo
         };
-        console.log('data: ' + data.name);
+        console.log(' ----------- DATA HERE: ' + data);
         res.render('sessions/edit', data);
       } else {
         res.redirect('/sessions');
