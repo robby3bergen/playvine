@@ -281,7 +281,7 @@ article.showcase p.call-to-action {
 }
 
 #creation form {
-  margin: 0 0 2rem 0;
+  margin: 0 0 1rem 0;
 }
 
 #creation label  {
@@ -348,6 +348,37 @@ article.showcase p.call-to-action {
   padding: 0.625rem;
   margin: 0 auto;
   font-size: .84rem;
+}
+
+/* ---- session edit form ---- */
+
+div.danger {
+  border-radius: .4rem;
+  background-color: #994949;
+  opacity: 0.7;
+  color: #f8f7f9;
+  padding: 1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+div.danger h2 {
+ margin: .5rem 0 0 0;
+ padding: 0;
+}
+
+div.danger p {
+  margin: 0;
+  padding: .3rem 0 1rem 0;
+  font-weight: 500;
+}
+
+div.danger button.button.alt {
+  background: #f8f7f9; 
+  color: #994949;
+  font-weight: 800;
+  font-size: 1rem;
+  text-transform: uppercase;
 }
 
 /* ---- testing ---- */

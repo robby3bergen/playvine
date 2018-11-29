@@ -9,7 +9,8 @@ const moment = require('moment');
 const MusicSession = require('../models/musicSession');
 const sessionMiddleware = require('../middleware/sessionMiddleware.js');
 
-/* GET session list page */
+/* ---------------- session list page ---------------- */
+// GET
 router.get('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   if (req.session.currentUser) {
     MusicSession.find({}).sort({ location: 1, startTime: 1 })
@@ -25,7 +26,8 @@ router.get('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   }
 });
 
-/* GET create session page */
+/* ---------------- create session page ---------------- */
+// GET
 router.get('/create', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   const enteredData = req.flash('FormData');
   const data = {
@@ -36,29 +38,7 @@ router.get('/create', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   res.render('sessions/create', data);
 });
 
-/* GET modify session page */
-router.get('/:id', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
-  // check if user is the creator of this session
-  //
-
-  console.log('parameters: ' + req.params.id);
-  MusicSession.findById(req.params.id)
-    .then(session => {
-      session.formattedStartTime = moment(session.startTime).format('YYYY-MM-DDTHH:mm');
-      const data = {
-        title: 'Playvine | Modify your session',
-        name: session.name,
-        startTime: session.formattedStartTime,
-        location: session.location,
-        roles: session.roles,
-        sessionInfo: session.sessionInfo
-      };
-      console.log('data: ' + data.name);
-      res.render('sessions/create', data);
-    })
-    .catch(next);
-});
-
+// POST
 router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   /* define the instruments key as an array, so that it can take in a single choice
   passed by roles in the body of the request (a single choice is just a string) */
@@ -96,14 +76,59 @@ router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
     .catch(next);
 });
 
-/* GET session details page */
-router.get('/:id/detail', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
+/* ---------------- modify session page ---------------- */
+// GET
+router.get('/:id/edit', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
+  // check if user is the creator of this session
+  console.log('parameters: ' + req.params.id);
+  MusicSession.findById(req.params.id)
+    .then(session => {
+      session.formattedStartTime = moment(session.startTime).format('YYYY-MM-DDTHH:mm');
+      const data = {
+        id: session._id,
+        title: 'Playvine | Modify your session',
+        name: session.name,
+        startTime: session.formattedStartTime,
+        location: session.location,
+        roles: session.roles,
+        sessionInfo: session.sessionInfo
+      };
+      console.log('data: ' + data.name);
+      res.render('sessions/edit', data);
+    })
+    .catch(next);
+});
+
+// POST
+router.post('/:id/edit', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
+  const id = req.params.id;
+  const { name, formattedStartTime, location, sessionInfo, instruments } = req.body;
+  MusicSession.findByIdAndUpdate(id, { name, formattedStartTime, location, sessionInfo, instruments })
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch(next);
+});
+
+/* ---------------- session details page ---------------- */
+// GET
+router.get('/:id', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   const id = req.params.id;
   MusicSession.findById(id)
     .then((session) => {
       session.formattedStartTime = moment(session.startTime).format('DD MMMM YYYY — HH:mm');
       console.log(session);
       res.render('sessions/detail', { musicSession: session, title: 'Playvine | Session details' });
+    })
+    .catch(next);
+});
+
+/* ---------------- delete session POST ---------------- */
+router.post('/:id/delete', (req, res, next) => {
+  const id = req.params.id;
+  MusicSession.findByIdAndRemove(id)
+    .then(result => {
+      res.redirect('/sessions');
     })
     .catch(next);
 });
