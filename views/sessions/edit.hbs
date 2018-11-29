@@ -1,14 +1,14 @@
 <section id="creation" class="container">
-  <h1>Create a new session</h1>
+  <h1>Edit Session</h1>
 
-  <form method="POST" action="/sessions">
+  <form method="POST" action="/sessions/{{id}}/edit">
 
     {{#if messages.length}}
-      {{#each messages}}
-        <p class="validation">
-          {{this}}
-        </p>
-      {{/each}}
+    {{#each messages}}
+    <p class="validation">
+      {{this}}
+    </p>
+    {{/each}}
     {{/if}}
 
     <div class="field">
@@ -62,11 +62,21 @@
     </fieldset>
 
     <div class="field">
-      <button class="button" type="submit">Save</button>
+      <button class="button" type="submit">Save changes</button>
     </div>
 
     <div class="cancel">
       <p>Or <a href="/sessions">cancel and go back</a>.</p>
     </div>
   </form>
+  <div class="danger">
+    <h2>DANGER ZONE</h2>
+    <p>Changes made here are final. Procceed at your own risk</p>
+    <form method="POST" action="/sessions/{{id}}/delete">
+      <div class="field-submit">
+        <button class="button alt" type="submit">Delete session</button>
+      </div>
+    </form>
+  </div>
+
 </section>

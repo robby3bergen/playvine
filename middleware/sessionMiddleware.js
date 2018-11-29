@@ -8,4 +8,6 @@ sessionMiddleware.userIsLoggedIn = (req, res, next) => {
   next();
 };
 
+// sessionMiddleware.userIsCreator = (req, res, next) => {};
+
 module.exports = sessionMiddleware;

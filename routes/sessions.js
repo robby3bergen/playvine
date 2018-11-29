@@ -10,7 +10,8 @@ const MusicSession = require('../models/musicSession');
 const JoinRequest = require('../models/joinRequest');
 const sessionMiddleware = require('../middleware/sessionMiddleware.js');
 
-/* GET session list page */
+/* ---------------- session list page ---------------- */
+// GET
 router.get('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   if (req.session.currentUser) {
     MusicSession.find({}).sort({ location: 1, startTime: 1 })
@@ -26,7 +27,8 @@ router.get('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   }
 });
 
-/* GET create session page */
+/* ---------------- create session page ---------------- */
+// GET
 router.get('/create', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   const enteredData = req.flash('FormData');
   const data = {
@@ -77,6 +79,7 @@ router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   // iterate through the roles chosen in the form
   // and add them to the instrument key
   const newSessionData = new MusicSession({
+    creatorId: req.session.currentUser._id,
     name: req.body.name,
     startTime: req.body.startTime,
     location: req.body.location,
@@ -98,8 +101,50 @@ router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
     .catch(next);
 });
 
-/* GET session details page */
-router.get('/:id/detail', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
+/* ---------------- modify session page ---------------- */
+// GET
+router.get('/:id/edit', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
+  MusicSession.findById(req.params.id)
+    .then((session) => {
+      console.log('Current User id is ' + req.session.currentUser._id);
+      /* MONGOOSE DOESN'T LET YOU COMPARE OBJECT IDS WITH AN ===
+      OPERATOR, SO YOU NEED TO USE .equals() TO BE ABLE TO */
+      if (session.creatorId.equals(req.session.currentUser._id)) {
+        console.log('Creator id for the session is ' + session.creatorId);
+        session.formattedStartTime = moment(session.startTime).format('YYYY-MM-DDTHH:mm');
+        const data = {
+          creatorId: session.creatorId,
+          id: session._id,
+          title: 'Playvine | Modify your session',
+          name: session.name,
+          startTime: session.formattedStartTime,
+          location: session.location,
+          roles: session.roles,
+          sessionInfo: session.sessionInfo
+        };
+        console.log('data: ' + data.name);
+        res.render('sessions/edit', data);
+      } else {
+        res.redirect('/sessions');
+      }
+    })
+    .catch(next);
+});
+
+// POST
+router.post('/:id/edit', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
+  const id = req.params.id;
+  const { name, formattedStartTime, location, sessionInfo, instruments } = req.body;
+  MusicSession.findByIdAndUpdate(id, { name, formattedStartTime, location, sessionInfo, instruments })
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch(next);
+});
+
+/* ---------------- session details page ---------------- */
+// GET
+router.get('/:id', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   const id = req.params.id;
   MusicSession.findById(id)
     .then((session) => {
@@ -115,6 +160,16 @@ router.post('/:id/join', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
     .then((session) => {
       req.flash('message', 'Your request has been sent. Please wait for the organiser to confirm or decline!');
       res.redirect(`/sessions/${req.params.id}/detail`);
+    })
+    .catch(next);
+});
+
+/* ---------------- delete session POST ---------------- */
+router.post('/:id/delete', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
+  const id = req.params.id;
+  MusicSession.findByIdAndRemove(id)
+    .then(result => {
+      res.redirect('/sessions');
     })
     .catch(next);
 });
