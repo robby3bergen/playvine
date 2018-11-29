@@ -39,29 +39,6 @@ router.get('/create', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   res.render('sessions/create', data);
 });
 
-/* GET modify session page */
-router.get('/:id', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
-  // check if user is the creator of this session
-  //
-
-  console.log('parameters: ' + req.params.id);
-  MusicSession.findById(req.params.id)
-    .then(session => {
-      session.formattedStartTime = moment(session.startTime).format('YYYY-MM-DDTHH:mm');
-      const data = {
-        title: 'Playvine | Modify your session',
-        name: session.name,
-        startTime: session.formattedStartTime,
-        location: session.location,
-        roles: session.roles,
-        sessionInfo: session.sessionInfo
-      };
-      console.log('data: ' + data.name);
-      res.render('sessions/create', data);
-    })
-    .catch(next);
-});
-
 /* POST create session */
 router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   /* define the instruments key as an array, so that it can take in a single choice
@@ -97,6 +74,18 @@ router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
       res.redirect('/sessions');
       /* redirect the user to the same route you used for
       the action= field in the hbs form */
+    })
+    .catch(next);
+});
+
+/* ---------------- session details page ---------------- */
+// GET
+router.get('/:id', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
+  const id = req.params.id;
+  MusicSession.findById(id)
+    .then((session) => {
+      session.formattedStartTime = moment(session.startTime).format('DD MMMM YYYY — HH:mm');
+      res.render('sessions/detail', { musicSession: session, title: 'Playvine | Session details', messages: req.flash('message') });
     })
     .catch(next);
 });
@@ -142,24 +131,12 @@ router.post('/:id/edit', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
     .catch(next);
 });
 
-/* ---------------- session details page ---------------- */
-// GET
-router.get('/:id', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
-  const id = req.params.id;
-  MusicSession.findById(id)
-    .then((session) => {
-      session.formattedStartTime = moment(session.startTime).format('DD MMMM YYYY — HH:mm');
-      res.render('sessions/detail', { musicSession: session, title: 'Playvine | Session details', messages: req.flash('message') });
-    })
-    .catch(next);
-});
-
 /* POST join session */
 router.post('/:id/join', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   JoinRequest.create({ joinerId: req.session.currentUser._id, sessionId: req.params.id, role: req.body.role, status: 'Pending' })
     .then((session) => {
       req.flash('message', 'Your request has been sent. Please wait for the organiser to confirm or decline!');
-      res.redirect(`/sessions/${req.params.id}/detail`);
+      res.redirect(`/sessions/${req.params.id}`);
     })
     .catch(next);
 });
