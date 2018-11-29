@@ -9,21 +9,29 @@
       {{musicSession.sessionInfo}}
     </p>
 
-    {{! -- <form method="POST" action="/requests"> --}}
+    <form method="POST" action="/sessions/{{musicSession.id}}/join">
       <fieldset class="needed">
         <h4>Instruments needed</h4>
         {{#each musicSession.roles}}
         <div id="creation" class="inline-field">
-          <input class="instrument" type="checkbox" name="roles" value="" id="instrument" />
+          <input class="instrument" type="radio" name="role" value="{{this.instrument}}" id="instrument" />
           <label for="instrument">{{this.instrument}}</label>
         </div>
         {{/each}}
         {{!-- {{#if currentUserId === musicSession.creatorId }}
         <a href="/sessions/{{session._id}}/create">Modify this session</a>
         {{else}} --}}
-        <button class="button with-margins" type="submit">Join this session</button>
         {{!-- {{/if}} --}}
       </fieldset>
-    {{! --</form> --}}
+
+      <button class="button with-margins" type="submit">Join this session</button>
+    </form>
+
+      {{#if messages.length}}
+          {{#each messages}}
+            <p class="message">* {{this}}</p>
+          {{/each}}
+      {{/if}}
+
   </article>
 </main>

@@ -7,6 +7,7 @@ const moment = require('moment');
 
 // javascript files
 const MusicSession = require('../models/musicSession');
+const JoinRequest = require('../models/joinRequest');
 const sessionMiddleware = require('../middleware/sessionMiddleware.js');
 
 /* GET session list page */
@@ -59,6 +60,7 @@ router.get('/:id', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
     .catch(next);
 });
 
+/* POST create session */
 router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   /* define the instruments key as an array, so that it can take in a single choice
   passed by roles in the body of the request (a single choice is just a string) */
@@ -102,8 +104,17 @@ router.get('/:id/detail', sessionMiddleware.userIsLoggedIn, (req, res, next) => 
   MusicSession.findById(id)
     .then((session) => {
       session.formattedStartTime = moment(session.startTime).format('DD MMMM YYYY — HH:mm');
-      console.log(session);
-      res.render('sessions/detail', { musicSession: session, title: 'Playvine | Session details' });
+      res.render('sessions/detail', { musicSession: session, title: 'Playvine | Session details', messages: req.flash('message') });
+    })
+    .catch(next);
+});
+
+/* POST join session */
+router.post('/:id/join', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
+  JoinRequest.create({ joinerId: req.session.currentUser._id, sessionId: req.params.id, role: req.body.role, status: 'Pending' })
+    .then((session) => {
+      req.flash('message', 'Your request has been sent. Please wait for the organiser to confirm or decline!');
+      res.redirect(`/sessions/${req.params.id}/detail`);
     })
     .catch(next);
 });
