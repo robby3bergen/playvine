@@ -55,6 +55,7 @@ router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   // iterate through the roles chosen in the form
   // and add them to the instrument key
   const newSessionData = new MusicSession({
+    creatorId: req.session.currentUser._id,
     name: req.body.name,
     startTime: req.body.startTime,
     location: req.body.location,
@@ -79,22 +80,29 @@ router.post('/', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
 /* ---------------- modify session page ---------------- */
 // GET
 router.get('/:id/edit', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
-  // check if user is the creator of this session
-  console.log('parameters: ' + req.params.id);
   MusicSession.findById(req.params.id)
-    .then(session => {
-      session.formattedStartTime = moment(session.startTime).format('YYYY-MM-DDTHH:mm');
-      const data = {
-        id: session._id,
-        title: 'Playvine | Modify your session',
-        name: session.name,
-        startTime: session.formattedStartTime,
-        location: session.location,
-        roles: session.roles,
-        sessionInfo: session.sessionInfo
-      };
-      console.log('data: ' + data.name);
-      res.render('sessions/edit', data);
+    .then((session) => {
+      console.log('Current User id is ' + req.session.currentUser._id);
+      /* MONGOOSE DOESN'T LET YOU COMPARE OBJECT IDS WITH AN ===
+      OPERATOR, SO YOU NEED TO USE .equals() TO BE ABLE TO */
+      if (session.creatorId.equals(req.session.currentUser._id)) {
+        console.log('Creator id for the session is ' + session.creatorId);
+        session.formattedStartTime = moment(session.startTime).format('YYYY-MM-DDTHH:mm');
+        const data = {
+          creatorId: session.creatorId,
+          id: session._id,
+          title: 'Playvine | Modify your session',
+          name: session.name,
+          startTime: session.formattedStartTime,
+          location: session.location,
+          roles: session.roles,
+          sessionInfo: session.sessionInfo
+        };
+        console.log('data: ' + data.name);
+        res.render('sessions/edit', data);
+      } else {
+        res.redirect('/sessions');
+      }
     })
     .catch(next);
 });
@@ -124,7 +132,7 @@ router.get('/:id', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
 });
 
 /* ---------------- delete session POST ---------------- */
-router.post('/:id/delete', (req, res, next) => {
+router.post('/:id/delete', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   const id = req.params.id;
   MusicSession.findByIdAndRemove(id)
     .then(result => {
