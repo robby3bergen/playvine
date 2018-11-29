@@ -32,11 +32,22 @@
     You can also <a href="/sessions/create">create your own</a>.
   </p>
 
+  {{#unless currentUser}}
   {{#each musicSessions}}
   <article class="showcase">
     <h3 class="header-info">{{this.name}}</h3>
-    <p class="session-info">
-      {{this.sessionInfo}}
-    </p>
+    <h4 class="session-location">{{this.location}}</h4>
+    <h4 class="session-time">{{this.formattedStartTime}}</h4>
+    <p class="call-to-action">Like it? <a href="/auth/signup">Sign up to learn more</a></p>
   </article>
   {{/each}}
+  {{else}}
+  {{#each musicSessions}}
+  <article class="showcase">
+    <h3 class="header-info">{{this.name}}</h3>
+    <h4 class="session-location">{{this.location}}</h4>
+    <h4 class="session-time">{{this.formattedStartTime}}</h4>
+    <a href="/sessions/{{this._id}}/detail">See details</a>
+  </article>
+  {{/each}}
+  {{/unless}}

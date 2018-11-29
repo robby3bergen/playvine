@@ -101,6 +101,7 @@ router.get('/:id/detail', sessionMiddleware.userIsLoggedIn, (req, res, next) => 
   MusicSession.findById(id)
     .then((session) => {
       session.formattedStartTime = moment(session.startTime).format('DD MMMM YYYY — HH:mm');
+      console.log(session);
       res.render('sessions/detail', { musicSession: session, title: 'Playvine | Session details' });
     })
     .catch(next);

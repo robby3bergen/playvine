@@ -245,6 +245,13 @@ article.showcase p.session-info {
   padding: 6;
 }
 
+article.showcase p.call-to-action {
+  margin: 0;
+  padding: 0;
+  font-size: .86rem;
+  font-weight: 500;
+}
+
 /* signup form */
 
 .auth h1 {
@@ -390,6 +397,16 @@ p.testing {
   line-height: 47px;
   font-weight: bold;
   border: none;
+}
+
+/* ---- session detail components ---- */
+
+button.with-margins {
+  margin: 1.25rem 0 0 .4rem ;
+}
+
+fieldset.needed {
+  border: 0;
 }
 
 /* navbar */
