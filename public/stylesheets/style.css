@@ -382,12 +382,8 @@ div.danger button.button.alt {
 
 /* ---- testing ---- */
 
-p.testing {
-  background-color: red;
-  width: 100%;
-  height: 10rem;
-  margin: 0;
-  color: #f8f7f9;
+p.center {
+  text-align: center;
 }
 
 /* ---- components ---- */
@@ -432,11 +428,19 @@ p.testing {
 /* ---- session detail components ---- */
 
 button.with-margins {
-  margin: 1.25rem 0 0 .4rem ;
+  margin: 1.25rem 0 0 .7rem ;
 }
 
 fieldset.needed {
   border: 0;
+}
+
+main article.showcase p.big-message {
+  color: #994949;
+  font-weight: 700;
+  text-align: center;
+  font-size: .8rem;
+  text-decoration: underline;
 }
 
 /* navbar */

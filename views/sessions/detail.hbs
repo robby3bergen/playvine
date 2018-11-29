@@ -18,20 +18,17 @@
           <label for="instrument">{{this.instrument}}</label>
         </div>
         {{/each}}
-        {{!-- {{#if currentUserId === musicSession.creatorId }}
-        <a href="/sessions/{{session._id}}/edit">Modify this session</a>
-        {{else}} --}}
-        {{!-- {{/if}} --}}
       </fieldset>
 
       <button class="button with-margins" type="submit">Join this session</button>
     </form>
 
-      {{#if messages.length}}
-          {{#each messages}}
-            <p class="message">* {{this}}</p>
-          {{/each}}
-      {{/if}}
+    <p class="center">Or <a href="/sessions/{{musicSession.id}}/edit">Modify details</a>.</p>
 
+    {{#if messages.length}}
+    {{#each messages}}
+    <p class="big-message">{{this}}</p>
+    {{/each}}
+    {{/if}}
   </article>
 </main>

@@ -114,7 +114,8 @@ router.get('/:id/edit', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
         console.log('data: ' + data.name);
         res.render('sessions/edit', data);
       } else {
-        res.redirect('/sessions');
+        req.flash('message', 'You can\'t modify a session you haven\'t created.');
+        res.redirect(`/sessions/${session._id}`);
       }
     })
     .catch(next);
