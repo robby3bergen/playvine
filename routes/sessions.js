@@ -44,10 +44,11 @@ router.get('/:id', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   console.log('parameters: ' + req.params.id);
   MusicSession.findById(req.params.id)
     .then(session => {
+      session.formattedStartTime = moment(session.startTime).format('YYYY-MM-DDTHH:mm');
       const data = {
         title: 'Playvine | Modify your session',
         name: session.name,
-        startTime: session.startTime,
+        startTime: session.formattedStartTime,
         location: session.location,
         roles: session.roles,
         sessionInfo: session.sessionInfo
