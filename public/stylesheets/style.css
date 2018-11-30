@@ -323,12 +323,20 @@ article.showcase p.call-to-action {
   background: #b9b0dd;
 }
 
+div.inline-field.radio#creation  {
+  display: inline-block;
+  margin: 0;
+  width: 90%;
+  padding-top: 1.25rem;
+  margin-bottom: 5px;
+}
+
 #creation div.inline-field {
   display: inline-block;
   margin: 0;
   width: 90%;
   padding-top: 1.25rem;
-}
+ }
 
 #creation div.cancel {
   display: inline-block;

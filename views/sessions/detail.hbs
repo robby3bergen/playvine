@@ -13,9 +13,9 @@
       <fieldset class="needed">
         <h4>Instruments needed</h4>
         {{#each musicSession.roles}}
-        <div id="creation" class="inline-field">
-          <input class="instrument" type="radio" name="role" value="{{this.instrument}}" id="instrument" />
-          <label for="instrument">{{this.instrument}}</label>
+        <div id="creation" class="inline-field radio">
+          <input class="instrument" type="radio" name="role" value="{{this.instrument}}" id="{{this.instrument}}" />
+          <label for="{{this.instrument}}">{{this.instrument}}</label>
         </div>
         {{/each}}
       </fieldset>
