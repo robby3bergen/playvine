@@ -288,7 +288,7 @@ https://www.figma.com/file/CMCIOGltk7r6UEk3DgoMJwFb/sessionplayer?node-id=55%3A0
 
 The url to your repository and to your deployed project
 
-[Repository Link](http://github.com)
+[Repository Link](https://github.com/robby3bergen/playvine)
 
 [Deploy Link](https://playvine.herokuapp.com/)
 
