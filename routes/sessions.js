@@ -115,7 +115,7 @@ router.get('/:id/edit', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
         res.render('sessions/edit', data);
       } else {
         req.flash('message', 'You can\'t modify a session you haven\'t created.');
-        res.redirect(`/sessions/${session._id}`);
+        res.redirect(`/sessions/${session._id}#flash-msg`);
       }
     })
     .catch(next);
@@ -137,7 +137,7 @@ router.post('/:id/join', sessionMiddleware.userIsLoggedIn, (req, res, next) => {
   JoinRequest.create({ joinerId: req.session.currentUser._id, sessionId: req.params.id, role: req.body.role, status: 'Pending' })
     .then((session) => {
       req.flash('message', 'Your request has been sent. Please wait for the organiser to confirm or decline!');
-      res.redirect(`/sessions/${req.params.id}`);
+      res.redirect(`/sessions/${req.params.id}#flash-msg`);
     })
     .catch(next);
 });

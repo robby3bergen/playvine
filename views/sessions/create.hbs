@@ -5,9 +5,7 @@
 
     {{#if messages.length}}
       {{#each messages}}
-        <p class="validation">
-          {{this}}
-        </p>
+        <p id="flash-msg" class="validation">{{this}}</p>
       {{/each}}
     {{/if}}
 
